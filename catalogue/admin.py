@@ -1,5 +1,5 @@
 from django.contrib import admin
-from django.utils import timezone
+
 from .models import Category, Product, ProductImage
 
 
@@ -19,21 +19,26 @@ class ProductImageInline(admin.TabularInline):
 @admin.action(description="Publish selected products")
 def publish_products(modeladmin, request, queryset):
     published = 0
-    skipped = 0
+    no_image = 0
+    no_alt = 0
 
     for product in queryset:
         if not product.main_image:
-            skipped += 1
+            no_image += 1
+            continue
+        if not product.main_image_alt.strip():
+            no_alt += 1
             continue
         product.publication_status = Product.PublicationStatus.PUBLISHED
         product.save()
         published += 1
 
     message = f"{published} product(s) published."
-    if skipped:
-        message += f" {skipped} skipped (no main image)."
+    if no_image:
+        message += f" {no_image} skipped (no main image)."
+    if no_alt:
+        message += f" {no_alt} skipped (no image description)."
     modeladmin.message_user(request, message)
-
 
 @admin.action(description="Unpublish selected products")
 def unpublish_products(modeladmin, request, queryset):

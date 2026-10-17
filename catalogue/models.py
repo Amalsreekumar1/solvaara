@@ -116,6 +116,11 @@ class Product(models.Model):
                 | models.Q(price__isnull=False, sale_price__lt=models.F("price")),
                 name="product_sale_price_below_price",
             ),
+            models.CheckConstraint(
+                condition=models.Q(publication_status="draft")
+                | ~models.Q(main_image=""),
+                name="published_requires_main_image",
+            ),
         ]
 
     def __str__(self):
@@ -142,6 +147,14 @@ class Product(models.Model):
         ):
             errors["main_image"] = "A published product needs a main image."
 
+        if (
+            self.publication_status == self.PublicationStatus.PUBLISHED
+            and not self.main_image_alt.strip()
+        ):
+            errors["main_image_alt"] = (
+                "Describe the main image for screen readers before publishing."
+            )
+
         if errors:
             raise ValidationError(errors)
 
@@ -162,7 +175,11 @@ class ProductImage(models.Model):
     image = models.ImageField(
         upload_to="products/gallery/%Y/%m/", validators=IMAGE_VALIDATORS
     )
-    alt_text = models.CharField(max_length=160, blank=True)
+    alt_text = models.CharField(
+        max_length=160, 
+        help_text="Describe what is visible in the photo."
+    )
+
     display_order = models.PositiveSmallIntegerField(default=0)
     created_at = models.DateTimeField(auto_now_add=True)
 

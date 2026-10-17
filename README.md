@@ -1,4 +1,3 @@
-
 # Solvaara
 
 A premium, enquiry-based jewellery catalogue built with Django.
@@ -373,19 +372,6 @@ No ratings, reviews, stock levels or addresses will be invented. Search Console 
 - Image uploads are limited by type and size.
 - Database access goes through the ORM.
 - Still to do before production: change the admin URL, add rate limiting or anti-spam for any public form, and review the production security settings.
-
----
-
-## Known limitations
-
-- The "a published product needs a main image" rule lives in `clean()` and the admin action. Code that calls `save()` directly can bypass it. Call `full_clean()` first in any custom script or import.
-- Deleting a product removes its database rows but not its image files from disk. This will be handled with production storage.
-- Alt text is not enforced. It is a content habit for the owner.
-- The admin is at the default `/admin/` address until changed.
-- Uploaded images are served by Django only when `DEBUG=True`.
-- There is no automated test suite yet.
-
----
 
 ## Roadmap
 
