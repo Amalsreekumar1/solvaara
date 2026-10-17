@@ -35,8 +35,10 @@ class Category(models.Model):
 class ProductQuerySet(models.QuerySet):
     def published(self):
         """The one place that decides what the public may see."""
-        return self.filter(publication_status=Product.PublicationStatus.PUBLISHED)
-
+        return self.filter(
+            publication_status=Product.PublicationStatus.PUBLISHED,
+            category__is_active=True,
+        )
 
 class Product(models.Model):
     class Availability(models.TextChoices):
