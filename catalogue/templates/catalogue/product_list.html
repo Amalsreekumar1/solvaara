@@ -11,6 +11,12 @@
     {% if current_category %}
     <input type="hidden" name="category" value="{{ current_category }}">
     {% endif %}
+    <label for="sort">Sort by</label>
+    <select id="sort" name="sort">
+        {% for key, label, is_selected in sort_options %}
+        <option value="{{ key }}" {% if is_selected %}selected{% endif %}>{{ label }}</option>
+        {% endfor %}
+    </select>
     <button type="submit">Search</button>
     {% if query or current_category %}
     <a href="{% url 'product_list' %}">Clear</a>
