@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+
+{% block title %}Solvaara | The Art of Adornment{% endblock %}
+
+{% block content %}
+<section>
+    <h1>Tradition, Reimagined.</h1>
+    <p>An expression of Indian artistry.</p>
+    <p><a href="{% url 'product_list' %}">Explore the collection</a></p>
+</section>
+
+{% if featured_products %}
+<section>
+    <h2>Selected for You</h2>
+    {% for product in featured_products %}
+    <article>
+        {% if product.main_image %}
+        <img src="{{ product.main_image.url }}" alt="{{ product.main_image_alt }}" width="300">
+        {% endif %}
+        <h3><a href="{{ product.get_absolute_url }}">{{ product.name }}</a></h3>
+        <p>{{ product.category.name }}</p>
+    </article>
+    {% endfor %}
+</section>
+{% endif %}
+
+{% if new_arrivals %}
+<section>
+    <h2>Recently Discovered</h2>
+    {% for product in new_arrivals %}
+    <article>
+        {% if product.main_image %}
+        <img src="{{ product.main_image.url }}" alt="{{ product.main_image_alt }}" width="300">
+        {% endif %}
+        <h3><a href="{{ product.get_absolute_url }}">{{ product.name }}</a></h3>
+        <p>{{ product.category.name }}</p>
+    </article>
+    {% endfor %}
+    <p><a href="{% url 'product_list' %}">View all jewellery</a></p>
+</section>
+{% endif %}
+{% endblock %}

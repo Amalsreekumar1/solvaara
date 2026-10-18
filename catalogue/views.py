@@ -92,3 +92,11 @@ def product_detail(request, slug):
         "catalogue/product_detail.html",
         {"product": product, "whatsapp_link": whatsapp_link},
     )
+
+def home(request):
+    products = Product.objects.published().select_related("category")
+    context = {
+        "featured_products": products.filter(is_featured=True)[:4],
+        "new_arrivals": products.order_by("-published_at")[:4],
+    }
+    return render(request, "catalogue/home.html", context)
