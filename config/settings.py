@@ -133,3 +133,5 @@ MAILERS = {
         'BACKEND': 'django.core.mail.backends.console.EmailBackend',
     },
 }
+
+WHATSAPP_NUMBER = os.environ.get("DJANGO_WHATSAPP_NUMBER", "")
