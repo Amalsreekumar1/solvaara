@@ -8,6 +8,15 @@
 </head>
 
 <body>
+    <header>
+        <a href="{% url 'product_list' %}">Solvaara</a>
+        <nav>
+            <a href="{% url 'product_list' %}">All jewellery</a>
+            {% for category in nav_categories %}
+            <a href="{% url 'product_list' %}?category={{ category.slug }}">{{ category.name }}</a>
+            {% endfor %}
+        </nav>
+    </header>
     {% block content %}{% endblock %}
 </body>
 

@@ -7,7 +7,12 @@ from django.conf import settings
 
 def product_list(request):
     products = Product.objects.published().select_related("category")
-    context = {"products": products}
+
+    category_slug = request.GET.get("category", "")
+    if category_slug:
+        products = products.filter(category__slug=category_slug)
+
+    context = {"products": products, "current_category": category_slug}
     return render(request, "catalogue/product_list.html", context)
 
 def product_detail(request, slug):

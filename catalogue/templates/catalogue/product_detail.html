@@ -3,7 +3,13 @@
 {% block title %}{{ product.name }} | Solvaara{% endblock %}
 
 {% block content %}
-<p><a href="{% url 'product_list' %}">Back to shop</a></p>
+<nav aria-label="Breadcrumb">
+    <a href="{% url 'product_list' %}">Shop</a>
+    /
+    <a href="{% url 'product_list' %}?category={{ product.category.slug }}">{{ product.category.name }}</a>
+    /
+    <span aria-current="page">{{ product.name }}</span>
+</nav>
 
 <h1>{{ product.name }}</h1>
 {% if product.sku %}<p>Code: {{ product.sku }}</p>{% endif %}
