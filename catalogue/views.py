@@ -3,7 +3,7 @@ from urllib.parse import quote
 from django.conf import settings
 from django.db.models import F, Q
 from django.shortcuts import get_object_or_404, render
-
+from django.core.paginator import Paginator
 from .models import Product
 
 SORT_OPTIONS = [
@@ -12,7 +12,7 @@ SORT_OPTIONS = [
     ("price_low", "Price: low to high", [F("price").asc(nulls_last=True)]),
     ("price_high", "Price: high to low", [F("price").desc(nulls_last=True)]),
 ]
-
+PAGE_SIZE = 2
 
 def product_list(request):
     products = Product.objects.published().select_related("category")
@@ -33,8 +33,17 @@ def product_list(request):
         sort = "newest"
     products = products.order_by(*ordering[sort])
 
+    paginator = Paginator(products, PAGE_SIZE)
+    page_obj = paginator.get_page(request.GET.get("page"))
+
+    params = request.GET.copy()
+    params.pop("page", None)
+    querystring = params.urlencode()
+
     context = {
-        "products": products,
+        "products": page_obj,
+        "page_obj": page_obj,
+        "querystring": querystring,
         "current_category": category_slug,
         "query": query,
         "sort": sort,
