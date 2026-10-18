@@ -10,7 +10,7 @@
     {% if product.main_image %}
     <img src="{{ product.main_image.url }}" alt="{{ product.main_image_alt }}" width="300">
     {% endif %}
-    <h2>{{ product.name }}</h2>
+    <h2><a href="{{ product.get_absolute_url }}">{{ product.name }}</a></h2>
     <p>{{ product.category.name }}</p>
 </article>
 {% empty %}

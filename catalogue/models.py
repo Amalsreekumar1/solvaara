@@ -4,6 +4,7 @@ from django.core.exceptions import ValidationError
 from django.core.validators import FileExtensionValidator, MinValueValidator
 from django.db import models
 from django.utils import timezone
+from django.urls import reverse
 
 from .validators import validate_image_size
 
@@ -127,6 +128,9 @@ class Product(models.Model):
 
     def __str__(self):
         return self.name
+
+    def get_absolute_url(self):
+        return reverse("product_detail", kwargs={"slug": self.slug})
 
     def _normalise_sku(self):
         # Store codes as UPPERCASE, and store "no code" as NULL, not "".
