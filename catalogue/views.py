@@ -3,6 +3,7 @@ from django.shortcuts import render, get_object_or_404
 from .models import Product
 from urllib.parse import quote
 from django.conf import settings
+from django.db.models import Q
 
 
 def product_list(request):
@@ -11,8 +12,18 @@ def product_list(request):
     category_slug = request.GET.get("category", "")
     if category_slug:
         products = products.filter(category__slug=category_slug)
+    
+    query = request.GET.get("q", "").strip()
+    if query:
+        products = products.filter(
+            Q(name__icontains=query) | Q(sku__icontains=query)
+        )
 
-    context = {"products": products, "current_category": category_slug}
+    context = {
+        "products": products,
+        "current_category": category_slug,
+        "query": query,
+    }
     return render(request, "catalogue/product_list.html", context)
 
 def product_detail(request, slug):

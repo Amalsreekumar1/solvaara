@@ -5,6 +5,18 @@
 {% block content %}
 <h1>Shop</h1>
 
+<form method="get" action="{% url 'product_list' %}">
+    <label for="q">Search</label>
+    <input type="search" id="q" name="q" value="{{ query }}" placeholder="Name or product code">
+    {% if current_category %}
+    <input type="hidden" name="category" value="{{ current_category }}">
+    {% endif %}
+    <button type="submit">Search</button>
+    {% if query or current_category %}
+    <a href="{% url 'product_list' %}">Clear</a>
+    {% endif %}
+</form>
+
 {% for product in products %}
 <article>
     {% if product.main_image %}
@@ -14,6 +26,6 @@
     <p>{{ product.category.name }}</p>
 </article>
 {% empty %}
-<p>No products yet.</p>
+<p>No products match your search.</p>
 {% endfor %}
 {% endblock %}
