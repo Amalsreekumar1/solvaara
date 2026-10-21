@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import Category, Product, ProductImage
+from .models import Category, Enquiry, Product, ProductImage
 
 
 @admin.register(Category)
@@ -39,6 +39,7 @@ def publish_products(modeladmin, request, queryset):
     if no_alt:
         message += f" {no_alt} skipped (no image description)."
     modeladmin.message_user(request, message)
+
 
 @admin.action(description="Unpublish selected products")
 def unpublish_products(modeladmin, request, queryset):
@@ -106,3 +107,12 @@ class ProductAdmin(admin.ModelAdmin):
             "fields": ("created_at", "updated_at", "published_at"),
         }),
     )
+
+
+@admin.register(Enquiry)
+class EnquiryAdmin(admin.ModelAdmin):
+    list_display = ["customer_name", "email", "phone", "status", "created_at"]
+    list_filter = ["status", "created_at"]
+    list_editable = ["status"]
+    search_fields = ["customer_name", "email", "phone", "message"]
+    readonly_fields = ["customer_name", "email", "phone", "message", "created_at"]

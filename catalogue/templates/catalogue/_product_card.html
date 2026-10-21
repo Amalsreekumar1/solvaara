@@ -1,0 +1,36 @@
+<article class="group flex flex-col bg-surface-container-lowest p-space-sm shadow-sm transition-all duration-300 hover:shadow-md">
+  <div class="relative aspect-[4/5] overflow-hidden bg-surface-container mb-space-sm">
+    {% if product.main_image %}
+    <img class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" src="{{ product.main_image.url }}" alt="{{ product.main_image_alt }}" loading="lazy" decoding="async">
+    {% endif %}
+    <span class="absolute top-3 left-3 bg-surface px-2 py-0.5 font-label-caps text-label-caps text-on-surface-variant">
+      {% firstof product.material product.get_availability_status_display %}
+    </span>
+  </div>
+  <div class="flex items-center justify-between text-on-surface-variant text-[11px] mb-1">
+    <span class="font-mono tracking-wider">{{ product.sku|default:product.category.name }}</span>
+    <span class="font-label-caps text-label-caps uppercase text-secondary">
+      {{ product.get_availability_status_display }}
+    </span>
+  </div>
+  <h3 class="font-headline-sm text-headline-sm text-primary mb-1">
+    <a class="hover:text-secondary transition-colors" href="{{ product.get_absolute_url }}">{{ product.name }}</a>
+  </h3>
+  <p class="font-body-sm text-body-sm text-on-surface-variant mb-3 flex-1">{{ product.short_description }}</p>
+  <div class="pt-2 flex items-center justify-between">
+    {% if product.sale_price %}
+    <span class="font-title-editorial text-title-editorial text-primary font-medium">
+      <s class="text-on-surface-variant text-[0.9em] mr-1">{{ currency }}{{ product.price|floatformat:"-2" }}</s>
+      {{ currency }}{{ product.sale_price|floatformat:"-2" }}
+    </span>
+    {% elif product.price %}
+    <span class="font-title-editorial text-title-editorial text-primary font-medium">{{ currency }}{{ product.price|floatformat:"-2" }}</span>
+    {% else %}
+    <span class="font-title-editorial text-title-editorial text-secondary italic">Price on Enquiry</span>
+    {% endif %}
+    <a class="inline-flex items-center gap-1 font-button text-button uppercase tracking-wider text-secondary hover:text-primary transition-colors" href="{{ product.get_absolute_url }}">
+      <span>Enquire</span>
+      <span class="material-symbols-outlined text-[14px]">arrow_forward</span>
+    </a>
+  </div>
+</article>

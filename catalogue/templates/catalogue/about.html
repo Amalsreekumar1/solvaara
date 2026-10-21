@@ -1,0 +1,140 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}Our Story | Solvaara{% endblock %}
+
+{% block content %}
+<div class="flex flex-col w-full">
+
+<section class="max-w-[1560px] mx-auto w-full px-margin md:px-margin-tablet lg:px-margin-desktop pt-8 pb-4">
+  <nav aria-label="Breadcrumb" class="flex items-center gap-2 font-label-caps text-label-caps text-on-surface-variant uppercase tracking-[0.2em]">
+    <a class="hover:text-primary transition-colors" href="{% url 'home' %}">Home</a>
+    <span class="text-secondary/60">/</span>
+    <span aria-current="page" class="text-primary font-semibold">Our Story</span>
+  </nav>
+</section>
+
+<section class="max-w-[1560px] mx-auto w-full px-margin md:px-margin-tablet lg:px-margin-desktop py-space-lg lg:py-space-xl">
+  <div class="grid grid-cols-1 lg:grid-cols-12 gap-gutter lg:gap-gutter-desktop items-baseline">
+    <div class="lg:col-span-8 flex flex-col gap-6">
+      <div class="inline-flex items-center gap-3">
+        <span class="w-8 h-[1px] bg-secondary"></span>
+        <span class="font-label-caps text-label-caps uppercase tracking-[0.25em] text-secondary">Our Story</span>
+      </div>
+      <h1 class="font-display text-display-mobile md:text-display text-primary leading-[1.05] tracking-tight">
+        Indian ornament,<br class="hidden sm:inline"/>
+        <span class="italic font-normal text-secondary">made for today.</span>
+      </h1>
+    </div>
+    <div class="lg:col-span-4 flex flex-col gap-4 lg:pt-6">
+      <span class="font-label-caps text-label-caps uppercase tracking-[0.2em] text-on-surface-variant">The idea</span>
+      <p class="font-body-lg text-body-lg text-on-surface-variant leading-relaxed">Solvaara began with a simple question: what would traditional Indian ornament look like if it were designed today? Our answer is jewellery that keeps the beauty of the old forms and drops everything unnecessary.</p>
+    </div>
+  </div>
+
+  <div class="mt-space-lg lg:mt-space-xl grid grid-cols-1 lg:grid-cols-12 gap-gutter lg:gap-gutter-desktop items-stretch">
+    <div class="lg:col-span-8 relative overflow-hidden bg-surface-container shadow-md aspect-[4/5] lg:aspect-auto lg:min-h-[560px]">
+      <img alt="Master goldsmith handcrafting jewellery at studio workbench under warm lamp light" class="absolute inset-0 w-full h-full object-cover" decoding="async" fetchpriority="high" src="{% static 'img/about.jpg' %}">
+    </div>
+    <div class="lg:col-span-4 flex flex-col justify-between gap-6 bg-surface-container-low p-space-md lg:p-space-lg shadow-sm">
+      <div class="flex flex-col gap-4">
+        <span class="font-label-caps text-label-caps uppercase tracking-[0.2em] text-secondary">Our approach</span>
+        <h2 class="font-headline-md text-headline-md text-primary">Ornament, reduced to its essence.</h2>
+        <p class="font-body-md text-body-md text-on-surface-variant leading-relaxed">Traditional jewellery is rich in pattern. We study those patterns, keep what gives a piece its character, and simplify the rest, so each design feels calm, balanced and easy to wear every day.</p>
+      </div>
+      <div class="p-space-md bg-surface-container-lowest shadow-sm flex flex-col gap-2">
+        <div class="flex items-center gap-2">
+          <span class="material-symbols-outlined text-[18px] text-secondary">verified</span>
+          <span class="font-label-caps text-label-caps uppercase tracking-[0.16em] text-primary">Honest details</span>
+        </div>
+        <p class="font-body-sm text-body-sm text-on-surface-variant mb-0">We list only details we can stand behind: what a piece is made of, its size, and whether it is available.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="w-full bg-surface-container-low py-space-xl lg:py-space-2xl">
+  <div class="max-w-[1560px] mx-auto px-margin md:px-margin-tablet lg:px-margin-desktop flex flex-col gap-space-lg">
+    <div class="flex flex-col md:flex-row md:items-end justify-between gap-6">
+      <div class="flex flex-col gap-2">
+        <span class="font-label-caps text-label-caps uppercase tracking-[0.25em] text-secondary">What inspires us</span>
+        <h2 class="font-headline-lg text-headline-lg text-primary">Four traditions, one language</h2>
+      </div>
+      <p class="font-body-md text-body-md text-on-surface-variant max-w-md">These are the ideas we return to when we design. They shape the look of the collection.</p>
+    </div>
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-gutter">
+      <article class="flex flex-col gap-4 bg-surface-container-lowest p-space-md shadow-sm">
+        <span class="material-symbols-outlined text-secondary text-[28px]">filter_vintage</span>
+        <h3 class="font-headline-sm text-headline-sm text-primary">Filigree</h3>
+        <p class="font-body-sm text-body-sm text-on-surface-variant mb-0">Fine, lace-like patterns that turn a plain surface into something delicate and detailed.</p>
+      </article>
+      <article class="flex flex-col gap-4 bg-surface-container-lowest p-space-md shadow-sm">
+        <span class="material-symbols-outlined text-secondary text-[28px]">grain</span>
+        <h3 class="font-headline-sm text-headline-sm text-primary">Texture</h3>
+        <p class="font-body-sm text-body-sm text-on-surface-variant mb-0">Tiny repeating details that catch the light and give a piece depth without extra weight.</p>
+      </article>
+      <article class="flex flex-col gap-4 bg-surface-container-lowest p-space-md shadow-sm">
+        <span class="material-symbols-outlined text-secondary text-[28px]">palette</span>
+        <h3 class="font-headline-sm text-headline-sm text-primary">Colour</h3>
+        <p class="font-body-sm text-body-sm text-on-surface-variant mb-0">Rich jewel tones set against warm metal, used sparingly so they stay special.</p>
+      </article>
+      <article class="flex flex-col gap-4 bg-surface-container-lowest p-space-md shadow-sm">
+        <span class="material-symbols-outlined text-secondary text-[28px]">diamond</span>
+        <h3 class="font-headline-sm text-headline-sm text-primary">Proportion</h3>
+        <p class="font-body-sm text-body-sm text-on-surface-variant mb-0">Clean shapes and balanced sizes, so each piece sits comfortably and looks effortless.</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section class="max-w-[1560px] mx-auto w-full px-margin md:px-margin-tablet lg:px-margin-desktop py-space-xl lg:py-space-2xl">
+  <div class="grid grid-cols-1 lg:grid-cols-12 gap-gutter lg:gap-gutter-desktop">
+    <div class="lg:col-span-5 flex flex-col gap-4">
+      <span class="font-label-caps text-label-caps uppercase tracking-[0.25em] text-secondary">How we work</span>
+      <h2 class="font-headline-lg text-headline-lg text-primary">A catalogue, not a checkout</h2>
+      <p class="font-body-md text-body-md text-on-surface-variant leading-relaxed">We would rather talk to you about a piece than rush you through a payment page. Browse the collection, find what you like, and ask us anything before you decide.</p>
+    </div>
+    <div class="lg:col-span-7 flex flex-col gap-6">
+      <div class="p-space-md lg:p-space-lg bg-surface-container-lowest shadow-sm flex flex-col md:flex-row gap-6 items-start">
+        <div class="w-12 h-12 flex-shrink-0 bg-surface-container flex items-center justify-center text-secondary">
+          <span class="material-symbols-outlined text-[28px]">visibility</span>
+        </div>
+        <div class="flex flex-col gap-2">
+          <h3 class="font-headline-sm text-headline-sm text-primary">Clear information</h3>
+          <p class="font-body-sm text-body-sm text-on-surface-variant leading-relaxed mb-0">Every piece shows its photographs, material, size and availability, so you know what you are asking about.</p>
+        </div>
+      </div>
+      <div class="p-space-md lg:p-space-lg bg-surface-container-lowest shadow-sm flex flex-col md:flex-row gap-6 items-start">
+        <div class="w-12 h-12 flex-shrink-0 bg-surface-container flex items-center justify-center text-secondary">
+          <span class="material-symbols-outlined text-[28px]">chat</span>
+        </div>
+        <div class="flex flex-col gap-2">
+          <h3 class="font-headline-sm text-headline-sm text-primary">Conversation first</h3>
+          <p class="font-body-sm text-body-sm text-on-surface-variant leading-relaxed mb-0">Message us on WhatsApp or send an enquiry. The message already names the piece, so we can reply with the right answer.</p>
+        </div>
+      </div>
+      <div class="p-space-md lg:p-space-lg bg-surface-container-lowest shadow-sm flex flex-col md:flex-row gap-6 items-start">
+        <div class="w-12 h-12 flex-shrink-0 bg-surface-container flex items-center justify-center text-secondary">
+          <span class="material-symbols-outlined text-[28px]">favorite</span>
+        </div>
+        <div class="flex flex-col gap-2">
+          <h3 class="font-headline-sm text-headline-sm text-primary">Made to be worn</h3>
+          <p class="font-body-sm text-body-sm text-on-surface-variant leading-relaxed mb-0">We design for real life: pieces you reach for often, not ones that live in a box.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="w-full bg-tertiary-container text-on-primary py-space-xl lg:py-space-2xl">
+  <div class="max-w-[1560px] mx-auto px-margin md:px-margin-tablet lg:px-margin-desktop text-center flex flex-col items-center gap-6">
+    <span class="font-label-caps text-label-caps uppercase tracking-[0.25em] text-secondary-fixed">Our belief</span>
+    <p class="font-headline-lg text-headline-lg text-surface-bright max-w-3xl leading-snug mb-0">Ornament is a language. We speak it quietly.</p>
+    <div class="flex flex-col sm:flex-row items-center gap-4 pt-4">
+      <a class="px-8 py-3.5 bg-surface-container-lowest text-primary font-button text-button uppercase tracking-[0.16em] hover:bg-secondary-container transition-colors" href="{% url 'product_list' %}">Explore the collection</a>
+      <a class="px-8 py-3.5 border border-primary-fixed/40 text-primary-fixed font-button text-button uppercase tracking-[0.16em] hover:bg-primary-fixed/10 transition-colors" href="{% url 'contact' %}">Get in touch</a>
+    </div>
+  </div>
+</section>
+
+</div>
+{% endblock %}

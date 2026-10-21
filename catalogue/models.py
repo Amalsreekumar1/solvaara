@@ -21,6 +21,12 @@ class Category(models.Model):
     display_order = models.PositiveSmallIntegerField(
         default=0, help_text="Lower numbers appear first in the menu."
     )
+    image = models.ImageField(
+        upload_to="categories/",
+        blank=True,
+        validators=IMAGE_VALIDATORS,
+        help_text="Shown on the homepage tile for this category.",
+    )
     is_active = models.BooleanField(default=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
@@ -194,3 +200,25 @@ class ProductImage(models.Model):
 
     def __str__(self):
         return f"{self.product.name} image {self.display_order}"
+
+class Enquiry(models.Model):
+    class Status(models.TextChoices):
+        NEW = "new", "New"
+        IN_PROGRESS = "in_progress", "In progress"
+        CLOSED = "closed", "Closed"
+
+    customer_name = models.CharField(max_length=100)
+    email = models.EmailField()
+    phone = models.CharField(max_length=30, blank=True)
+    message = models.TextField(max_length=2000)
+    status = models.CharField(
+        max_length=20, choices=Status.choices, default=Status.NEW
+    )
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        ordering = ["-created_at"]
+        verbose_name_plural = "enquiries"
+
+    def __str__(self):
+        return f"{self.customer_name} ({self.created_at:%d %b %Y})"

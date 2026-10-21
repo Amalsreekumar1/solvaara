@@ -1,0 +1,168 @@
+{% extends "base.html" %}
+{% block title %}Contact | Solvaara{% endblock %}
+
+{% block content %}
+<div class="flex flex-col w-full">
+
+<section class="w-full bg-surface-container-low py-space-sm">
+  <div class="max-w-[1560px] mx-auto px-margin md:px-margin-tablet lg:px-margin-desktop">
+    <nav aria-label="Breadcrumb" class="flex items-center gap-2 font-label-caps text-label-caps uppercase tracking-[0.16em] text-on-surface-variant">
+      <a class="hover:text-primary transition-colors" href="{% url 'home' %}">Home</a>
+      <span class="text-outline">/</span>
+      <span aria-current="page" class="text-secondary">Contact</span>
+    </nav>
+  </div>
+</section>
+
+<section class="w-full bg-surface py-space-lg">
+  <div class="max-w-[1560px] mx-auto px-margin md:px-margin-tablet lg:px-margin-desktop">
+    <div class="flex flex-col lg:flex-row lg:items-end justify-between gap-6">
+      <div class="max-w-2xl">
+        <span class="font-label-caps text-label-caps uppercase tracking-[0.25em] text-secondary">Get in touch</span>
+        <h1 class="font-headline-lg text-headline-lg text-primary tracking-tight mt-1">Contact Us</h1>
+      </div>
+      <p class="font-body-md text-body-md text-on-surface-variant max-w-md leading-relaxed">Questions about a piece, its availability or its details? Send us a message and we will reply.</p>
+    </div>
+  </div>
+</section>
+
+<section class="w-full bg-surface-container-lowest py-space-xl">
+  <div class="max-w-[1560px] mx-auto px-margin md:px-margin-tablet lg:px-margin-desktop">
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-gutter lg:gap-gutter-desktop items-start">
+
+      <div class="lg:col-span-5 flex flex-col gap-space-md">
+        {% if site_whatsapp_link %}
+        <div class="bg-surface-container-low p-space-md lg:p-space-lg flex flex-col gap-4">
+          <div class="inline-flex items-center gap-2.5 px-3 py-1 bg-surface-container-highest self-start">
+            {% include "_whatsapp_icon.html" with class="w-[18px] h-[18px] text-secondary" %}
+            <span class="font-label-caps text-label-caps uppercase tracking-[0.16em] text-primary">WhatsApp</span>
+          </div>
+          <p class="font-body-sm text-body-sm text-on-surface-variant">The quickest way to ask about a piece.</p>
+          <a class="inline-flex items-center justify-between px-space-md py-space-sm bg-primary text-on-primary font-button text-button uppercase tracking-[0.15em] hover:bg-tertiary-container transition-colors" href="{{ site_whatsapp_link }}" rel="noopener" target="_blank">
+            <span>Message us on WhatsApp</span>
+            <span class="material-symbols-outlined text-[18px]">arrow_outward</span>
+          </a>
+        </div>
+        {% endif %}
+
+        {% if site_phone %}
+        <div class="bg-surface p-space-md flex items-center justify-between">
+          <div class="flex flex-col">
+            <span class="font-label-caps text-label-caps uppercase tracking-[0.18em] text-on-surface-variant">Phone</span>
+            <a class="font-title-editorial text-title-editorial text-primary hover:text-secondary transition-colors mt-0.5" href="tel:{{ site_phone_href }}">{{ site_phone }}</a>
+          </div>
+          <span class="material-symbols-outlined text-secondary text-[24px]">call</span>
+        </div>
+        {% endif %}
+
+        {% if site_contact_email %}
+        <div class="bg-surface p-space-md flex items-center justify-between">
+          <div class="flex flex-col">
+            <span class="font-label-caps text-label-caps uppercase tracking-[0.18em] text-on-surface-variant">Email</span>
+            <a class="font-title-editorial text-title-editorial text-primary hover:text-secondary transition-colors mt-0.5" href="mailto:{{ site_contact_email }}">{{ site_contact_email }}</a>
+          </div>
+          <span class="material-symbols-outlined text-secondary text-[24px]">mail</span>
+        </div>
+        {% endif %}
+
+        {% if site_address %}
+        <div class="bg-surface p-space-md flex items-center justify-between gap-4">
+          <div class="flex flex-col">
+            <span class="font-label-caps text-label-caps uppercase tracking-[0.18em] text-on-surface-variant">Address</span>
+            <p class="font-body-md text-body-md text-primary mt-0.5 mb-0">{{ site_address }}</p>
+          </div>
+          <span class="material-symbols-outlined text-secondary text-[24px]">location_on</span>
+        </div>
+        {% endif %}
+
+        {% if site_hours %}
+        <div class="bg-surface p-space-md flex items-center justify-between gap-4">
+          <div class="flex flex-col">
+            <span class="font-label-caps text-label-caps uppercase tracking-[0.18em] text-on-surface-variant">Opening hours</span>
+            <p class="font-body-md text-body-md text-primary mt-0.5 mb-0">{{ site_hours }}</p>
+          </div>
+          <span class="material-symbols-outlined text-secondary text-[24px]">schedule</span>
+        </div>
+        {% endif %}
+      </div>
+
+      <div class="lg:col-span-7 bg-surface p-space-md md:p-space-lg lg:p-space-xl shadow-sm flex flex-col gap-space-md">
+        <div class="flex flex-col gap-2">
+          <span class="font-label-caps text-label-caps uppercase tracking-[0.22em] text-secondary">Send a message</span>
+          <h2 class="font-headline-md text-headline-md text-primary tracking-tight">Send an Enquiry</h2>
+          <p class="font-body-sm text-body-sm text-on-surface-variant">Tell us which piece you are interested in, or ask us anything. We will reply by email or phone.</p>
+        </div>
+
+        {% for message in messages %}
+        <div class="bg-secondary-container text-on-secondary-fixed p-space-sm flex items-start gap-3" role="status">
+          <span class="material-symbols-outlined text-[20px]">check_circle</span>
+          <p class="font-body-sm text-body-sm mb-0">{{ message }}</p>
+        </div>
+        {% endfor %}
+
+        {% if form.errors %}
+        <div class="bg-error-container text-on-error-container p-space-sm" role="alert">
+          <p class="font-body-sm text-body-sm font-semibold mb-0">Please check the form and try again.</p>
+          {% for error in form.non_field_errors %}
+          <p class="font-body-sm text-body-sm mb-0">{{ error }}</p>
+          {% endfor %}
+        </div>
+        {% endif %}
+
+        <form action="{% url 'contact' %}" class="flex flex-col gap-space-md" method="post">
+          {% csrf_token %}
+
+          <div aria-hidden="true" class="absolute -left-[9999px] w-px h-px overflow-hidden">
+            <label for="{{ form.website.id_for_label }}">{{ form.website.label }}</label>
+            {{ form.website }}
+          </div>
+
+          <div class="flex flex-col gap-1.5">
+            <label class="font-label-caps text-label-caps uppercase tracking-[0.14em] text-primary" for="{{ form.customer_name.id_for_label }}">{{ form.customer_name.label }} <span class="text-secondary">*</span></label>
+            {{ form.customer_name }}
+            {% for error in form.customer_name.errors %}
+            <p class="font-body-sm text-body-sm text-error mb-0">{{ error }}</p>
+            {% endfor %}
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-space-sm">
+            <div class="flex flex-col gap-1.5">
+              <label class="font-label-caps text-label-caps uppercase tracking-[0.14em] text-primary" for="{{ form.email.id_for_label }}">{{ form.email.label }} <span class="text-secondary">*</span></label>
+              {{ form.email }}
+              {% for error in form.email.errors %}
+              <p class="font-body-sm text-body-sm text-error mb-0">{{ error }}</p>
+              {% endfor %}
+            </div>
+            <div class="flex flex-col gap-1.5">
+              <label class="font-label-caps text-label-caps uppercase tracking-[0.14em] text-primary" for="{{ form.phone.id_for_label }}">{{ form.phone.label }}</label>
+              {{ form.phone }}
+              {% for error in form.phone.errors %}
+              <p class="font-body-sm text-body-sm text-error mb-0">{{ error }}</p>
+              {% endfor %}
+            </div>
+          </div>
+
+          <div class="flex flex-col gap-1.5">
+            <label class="font-label-caps text-label-caps uppercase tracking-[0.14em] text-primary" for="{{ form.message.id_for_label }}">{{ form.message.label }} <span class="text-secondary">*</span></label>
+            {{ form.message }}
+            {% for error in form.message.errors %}
+            <p class="font-body-sm text-body-sm text-error mb-0">{{ error }}</p>
+            {% endfor %}
+          </div>
+
+          <div class="pt-2 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+            <button class="inline-flex items-center justify-center gap-4 px-8 py-4 bg-primary text-on-primary font-button text-button uppercase tracking-[0.18em] hover:bg-tertiary-container transition-all shadow-md" type="submit">
+              <span>Send enquiry</span>
+              <span class="material-symbols-outlined text-[18px]">send</span>
+            </button>
+            <p class="font-body-sm text-body-sm text-on-surface-variant mb-0">Your details are used only to reply. See our <a class="underline hover:text-secondary" href="{% url 'policy' 'privacy' %}">privacy policy</a>.</p>
+          </div>
+        </form>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+</div>
+{% endblock %}

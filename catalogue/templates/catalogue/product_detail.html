@@ -1,44 +1,206 @@
 {% extends "base.html" %}
-
 {% block title %}{{ product.name }} | Solvaara{% endblock %}
 
 {% block content %}
-<nav aria-label="Breadcrumb">
-    <a href="{% url 'product_list' %}">Shop</a>
-    /
-    <a href="{% url 'product_list' %}?category={{ product.category.slug }}">{{ product.category.name }}</a>
-    /
-    <span aria-current="page">{{ product.name }}</span>
-</nav>
+<div class="flex flex-col w-full">
 
-<h1>{{ product.name }}</h1>
-{% if product.sku %}<p>Code: {{ product.sku }}</p>{% endif %}
+<section class="max-w-[1560px] mx-auto w-full px-margin md:px-margin-tablet lg:px-margin-desktop pt-space-md pb-space-sm">
+  <nav aria-label="Breadcrumb" class="flex flex-wrap items-center gap-2 font-label-caps text-label-caps uppercase tracking-[0.16em] text-on-surface-variant">
+    <a class="hover:text-primary transition-colors" href="{% url 'home' %}">Home</a>
+    <span class="text-surface-tint">/</span>
+    <a class="hover:text-primary transition-colors" href="{% url 'product_list' %}">Jewellery</a>
+    <span class="text-surface-tint">/</span>
+    <a class="hover:text-primary transition-colors" href="{% url 'product_list' %}?category={{ product.category.slug }}">{{ product.category.name }}</a>
+    <span class="text-surface-tint">/</span>
+    <span aria-current="page" class="text-primary font-semibold">{{ product.name }}</span>
+  </nav>
+</section>
 
-{% if product.main_image %}
-<img src="{{ product.main_image.url }}" alt="{{ product.main_image_alt }}" width="400">
+<section class="max-w-[1560px] mx-auto w-full px-margin md:px-margin-tablet lg:px-margin-desktop pb-space-2xl">
+  <div class="grid grid-cols-1 lg:grid-cols-12 gap-gutter lg:gap-gutter-desktop items-start">
+
+    <div class="lg:col-span-7 flex flex-col gap-space-md">
+      <div class="relative bg-surface-container-low overflow-hidden shadow-sm">
+        <div class="relative w-full aspect-[4/5] bg-surface-container overflow-hidden">
+          {% if product.main_image %}
+          <img alt="{{ product.main_image_alt }}" class="w-full h-full object-cover" id="active-hero-image" src="{{ product.main_image.url }}">
+          {% endif %}
+        </div>
+        {% if product.sku %}
+        <div class="bg-surface-container-high/60 px-6 py-4 flex items-center gap-3">
+          <span class="font-label-caps text-label-caps uppercase tracking-[0.15em] text-on-surface-variant">Reference</span>
+          <span class="text-surface-tint">&bull;</span>
+          <span class="font-body-sm text-body-sm text-primary font-medium">{{ product.sku }}</span>
+        </div>
+        {% endif %}
+      </div>
+
+      {% if product.images.all %}
+      <div class="grid grid-cols-4 gap-3 md:gap-4">
+        {% if product.main_image %}
+        <button class="bg-surface-container-highest p-2 text-left transition-all duration-300 shadow-sm" data-alt="{{ product.main_image_alt }}" data-src="{{ product.main_image.url }}" data-thumb type="button" aria-label="Show main photo" aria-current="true">
+          <div class="aspect-square w-full overflow-hidden bg-surface-container">
+            <img alt="" class="w-full h-full object-cover" src="{{ product.main_image.url }}" loading="lazy">
+          </div>
+        </button>
+        {% endif %}
+        {% for image in product.images.all %}
+        <button class="bg-surface-container-low p-2 text-left transition-all duration-300 hover:bg-surface-container" data-alt="{{ image.alt_text }}" data-src="{{ image.image.url }}" data-thumb type="button" aria-label="Show photo {{ forloop.counter }}">
+          <div class="aspect-square w-full overflow-hidden bg-surface-container">
+            <img alt="" class="w-full h-full object-cover" src="{{ image.image.url }}" loading="lazy">
+          </div>
+        </button>
+        {% endfor %}
+      </div>
+      {% endif %}
+
+      {% if product.description %}
+      <div class="mt-space-lg bg-surface-container-lowest p-space-md lg:p-space-lg shadow-sm">
+        <div class="flex items-center gap-3 mb-space-sm">
+          <span class="material-symbols-outlined text-secondary text-[22px]">history_edu</span>
+          <h2 class="font-headline-sm text-headline-sm text-primary">About this piece</h2>
+        </div>
+        <p class="font-body-lg text-body-lg text-on-surface-variant leading-relaxed">{{ product.description|linebreaksbr }}</p>
+      </div>
+      {% endif %}
+    </div>
+
+    <div class="lg:col-span-5 lg:sticky lg:top-28 flex flex-col gap-space-md">
+      <div class="bg-surface-container-lowest p-space-md lg:p-space-lg shadow-sm flex flex-col gap-4">
+        <div class="flex flex-wrap items-center justify-between gap-2">
+          <span class="inline-flex items-center gap-1.5 px-3 py-1 bg-surface-container-high text-primary font-label-caps text-label-caps uppercase tracking-[0.2em]">
+            <span class="w-1.5 h-1.5 bg-secondary rounded-full"></span>
+            {{ product.category.name }}
+          </span>
+          {% if product.sku %}
+          <span class="font-label-caps text-label-caps tracking-[0.16em] uppercase text-on-surface-variant">SKU: {{ product.sku }}</span>
+          {% endif %}
+        </div>
+
+        <h1 class="font-headline-lg text-headline-lg text-primary tracking-tight">{{ product.name }}</h1>
+
+        <div class="flex flex-col gap-1 pb-3">
+          {% if product.sale_price %}
+          <div class="flex items-baseline gap-3">
+            <span class="font-headline-lg text-headline-lg text-primary font-normal">{{ currency }}{{ product.sale_price|floatformat:"-2" }}</span>
+            <s class="font-body-sm text-body-sm text-on-surface-variant">{{ currency }}{{ product.price|floatformat:"-2" }}</s>
+          </div>
+          {% elif product.price %}
+          <span class="font-headline-lg text-headline-lg text-primary font-normal">{{ currency }}{{ product.price|floatformat:"-2" }}</span>
+          {% else %}
+          <span class="font-headline-md text-headline-md text-secondary italic">Price on Enquiry</span>
+          {% endif %}
+        </div>
+
+        <div class="flex items-center gap-2.5 px-3.5 py-2.5 bg-surface-container-low text-primary">
+          <span class="w-2.5 h-2.5 rounded-full bg-secondary"></span>
+          <span class="font-body-sm text-body-sm font-medium">{{ product.get_availability_status_display }}</span>
+        </div>
+
+        {% if product.short_description %}
+        <p class="font-body-md text-body-md text-on-surface-variant">{{ product.short_description }}</p>
+        {% endif %}
+
+        <div class="pt-2 flex flex-col gap-3">
+          {% if whatsapp_link %}
+          <a class="w-full flex items-center justify-between px-6 py-4 bg-primary text-on-primary hover:bg-tertiary-container transition-all duration-300 shadow-md group" href="{{ whatsapp_link }}" rel="noopener noreferrer" target="_blank">
+            <div class="flex items-center gap-3">
+              {% include "_whatsapp_icon.html" with class="w-6 h-6 text-secondary-fixed" %}
+              <span class="font-button text-button uppercase tracking-[0.16em] font-bold">Enquire via WhatsApp</span>
+            </div>
+            <span class="material-symbols-outlined text-[20px] group-hover:translate-x-1 transition-transform">arrow_forward</span>
+          </a>
+          <p class="font-label-caps text-label-caps text-center text-on-surface-variant tracking-[0.14em]">Opens WhatsApp with this piece already named in the message.</p>
+          {% else %}
+          <a class="w-full flex items-center justify-between px-6 py-4 bg-primary text-on-primary hover:bg-tertiary-container transition-all duration-300 shadow-md" href="{% url 'contact' %}">
+            <span class="font-button text-button uppercase tracking-[0.16em] font-bold">Contact us about this piece</span>
+            <span class="material-symbols-outlined text-[20px]">arrow_forward</span>
+          </a>
+          {% endif %}
+        </div>
+      </div>
+
+      {% if product.material or product.plating or product.colour or product.dimensions or product.available_sizes %}
+      <div class="bg-surface-container-lowest p-space-md shadow-sm flex flex-col">
+        <div class="flex items-center justify-between pb-3">
+          <span class="font-title-editorial text-title-editorial text-primary uppercase tracking-[0.12em]">Specifications</span>
+        </div>
+        <div class="space-y-2.5 pt-2">
+          {% if product.material %}
+          <div class="flex justify-between items-center py-2 bg-surface-container-low px-3">
+            <span class="font-label-caps text-label-caps uppercase text-on-surface-variant tracking-wider">Material</span>
+            <span class="font-body-sm text-body-sm font-semibold text-primary text-right">{{ product.material }}</span>
+          </div>
+          {% endif %}
+          {% if product.plating %}
+          <div class="flex justify-between items-center py-2 bg-surface-container-low px-3">
+            <span class="font-label-caps text-label-caps uppercase text-on-surface-variant tracking-wider">Plating</span>
+            <span class="font-body-sm text-body-sm font-semibold text-primary text-right">{{ product.plating }}</span>
+          </div>
+          {% endif %}
+          {% if product.colour %}
+          <div class="flex justify-between items-center py-2 bg-surface-container-low px-3">
+            <span class="font-label-caps text-label-caps uppercase text-on-surface-variant tracking-wider">Colour</span>
+            <span class="font-body-sm text-body-sm font-semibold text-primary text-right">{{ product.colour }}</span>
+          </div>
+          {% endif %}
+          {% if product.dimensions %}
+          <div class="flex justify-between items-center py-2 bg-surface-container-low px-3">
+            <span class="font-label-caps text-label-caps uppercase text-on-surface-variant tracking-wider">Dimensions</span>
+            <span class="font-body-sm text-body-sm font-semibold text-primary text-right">{{ product.dimensions }}</span>
+          </div>
+          {% endif %}
+          {% if product.available_sizes %}
+          <div class="flex justify-between items-center py-2 bg-surface-container-low px-3">
+            <span class="font-label-caps text-label-caps uppercase text-on-surface-variant tracking-wider">Sizes</span>
+            <span class="font-body-sm text-body-sm font-semibold text-primary text-right">{{ product.available_sizes }}</span>
+          </div>
+          {% endif %}
+        </div>
+      </div>
+      {% endif %}
+    </div>
+  </div>
+</section>
+
+{% if related_products %}
+<section class="w-full bg-surface-container-low py-space-xl">
+  <div class="max-w-[1560px] mx-auto px-margin md:px-margin-tablet lg:px-margin-desktop">
+    <div class="mb-space-lg">
+      <span class="font-label-caps text-label-caps uppercase tracking-[0.22em] text-secondary block mb-1">Pairings</span>
+      <h2 class="font-headline-lg text-headline-lg text-primary">You May Also Like</h2>
+    </div>
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-gutter lg:gap-gutter-desktop">
+      {% for product in related_products %}
+        {% include "catalogue/_product_card.html" %}
+      {% endfor %}
+    </div>
+  </div>
+</section>
 {% endif %}
 
-{% for image in product.images.all %}
-<img src="{{ image.image.url }}" alt="{{ image.alt_text }}" width="150">
-{% endfor %}
+</div>
 
-{% if product.sale_price %}
-<p><s>₹{{ product.price }}</s> ₹{{ product.sale_price }}</p>
-{% elif product.price %}
-<p>₹{{ product.price }}</p>
-{% endif %}
+<script>
+(function () {
+  var hero = document.getElementById("active-hero-image");
+  var thumbs = document.querySelectorAll("[data-thumb]");
+  if (!hero || !thumbs.length) { return; }
 
-<p>{{ product.get_availability_status_display }}</p>
-
-{% if whatsapp_link %}
-<p><a href="{{ whatsapp_link }}" target="_blank" rel="noopener">Enquire on WhatsApp</a></p>
-{% endif %}
-
-<p>{{ product.description }}</p>
-
-{% if product.material %}<p>Material: {{ product.material }}</p>{% endif %}
-{% if product.plating %}<p>Plating: {{ product.plating }}</p>{% endif %}
-{% if product.colour %}<p>Colour: {{ product.colour }}</p>{% endif %}
-{% if product.dimensions %}<p>Dimensions: {{ product.dimensions }}</p>{% endif %}
-{% if product.available_sizes %}<p>Sizes: {{ product.available_sizes }}</p>{% endif %}
+  thumbs.forEach(function (thumb) {
+    thumb.addEventListener("click", function () {
+      hero.src = thumb.getAttribute("data-src");
+      hero.alt = thumb.getAttribute("data-alt") || "";
+      thumbs.forEach(function (other) {
+        other.classList.remove("bg-surface-container-highest");
+        other.classList.add("bg-surface-container-low");
+        other.removeAttribute("aria-current");
+      });
+      thumb.classList.remove("bg-surface-container-low");
+      thumb.classList.add("bg-surface-container-highest");
+      thumb.setAttribute("aria-current", "true");
+    });
+  });
+})();
+</script>
 {% endblock %}

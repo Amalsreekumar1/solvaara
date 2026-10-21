@@ -1,42 +1,316 @@
 {% extends "base.html" %}
-
+{% load static %}
 {% block title %}Solvaara | The Art of Adornment{% endblock %}
 
 {% block content %}
-<section>
-    <h1>Tradition, Reimagined.</h1>
-    <p>An expression of Indian artistry.</p>
-    <p><a href="{% url 'product_list' %}">Explore the collection</a></p>
+<style>
+.hero-frame { border: 1px solid #DED4C5; }
+.hero-watermark { -webkit-text-stroke: 1px rgba(121,89,36,0.12); color: transparent; }
+@keyframes heroPulseBar { 0%,100% { transform: scaleX(0.3); transform-origin: left; } 50% { transform: scaleX(1); transform-origin: left; } }
+.hero-line { animation: heroPulseBar 3s ease-in-out infinite; }
+</style>
+
+<div class="flex flex-col w-full">
+
+<!-- 1. HERO: EDITORIAL COLLAGE -->
+<section class="relative w-full overflow-hidden bg-surface pb-space-lg pt-space-md" id="hero-section">
+  <div aria-hidden="true" class="absolute inset-x-0 top-12 flex justify-center pointer-events-none select-none overflow-hidden z-0 opacity-25">
+    <span class="hero-watermark font-display text-[14vw] font-normal tracking-[0.28em] whitespace-nowrap uppercase leading-none">SOLVAARA</span>
+  </div>
+
+  <div class="max-w-[1560px] mx-auto px-margin md:px-margin-tablet lg:px-margin-desktop relative z-10">
+
+    <div class="flex flex-col sm:flex-row sm:items-center justify-between border-b border-[#DED4C5]/80 pb-3 mb-space-md text-on-surface-variant font-label-caps text-label-caps tracking-[0.22em] uppercase">
+      <div class="flex items-center gap-3">
+        <span class="inline-block w-2 h-2 rounded-full bg-secondary"></span>
+        <span>The Art of Adornment</span>
+      </div>
+      <div class="mt-1 sm:mt-0 text-on-surface-variant">
+        <span>Indian-inspired jewellery</span>
+      </div>
+    </div>
+
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-gutter lg:gap-gutter-desktop items-start">
+
+      <!-- Left: headline and first plate -->
+      <div class="lg:col-span-4 flex flex-col justify-between self-stretch z-10 pt-2 lg:pt-6">
+        <div class="space-y-space-md" id="hero-narrative">
+          <div class="space-y-2">
+            <span class="font-label-caps text-label-caps text-secondary tracking-[0.24em] uppercase block">The Collection</span>
+            <h1 class="font-display text-display-mobile md:text-display text-primary leading-[1.05] tracking-tight">
+              Tradition,<br/><span class="italic font-light text-secondary">Reimagined.</span>
+            </h1>
+          </div>
+          <p class="font-body-lg text-body-lg text-on-surface-variant leading-relaxed max-w-sm">
+            Indian ornament, designed for today. Browse the collection and enquire about any piece.
+          </p>
+          <div class="pt-2 flex flex-wrap items-center gap-6 font-button text-button tracking-[0.16em] uppercase">
+            <a class="text-primary hover:text-secondary pb-1 border-b border-primary hover:border-secondary transition-colors" href="{% url 'product_list' %}">Explore the Collection</a>
+            <a class="text-on-surface-variant hover:text-primary transition-colors flex items-center gap-1 group" href="{% url 'about' %}">
+              <span>Our Story</span>
+              <span class="material-symbols-outlined text-[14px] transition-transform group-hover:translate-x-1">arrow_forward</span>
+            </a>
+          </div>
+        </div>
+
+        <div class="hidden lg:block mt-space-xl group relative" data-parallax="0.10">
+          <div class="overflow-hidden hero-frame bg-surface-container-low p-2 shadow-sm">
+            <div class="aspect-[4/3] overflow-hidden bg-surface-container">
+              <img alt="" class="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.04]" decoding="async" loading="lazy" onerror="this.remove()" src="{% static 'img/hero-1.png' %}">
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Centre: main portrait -->
+      <div class="lg:col-span-5 relative mt-6 lg:mt-0 flex flex-col items-center">
+        <div class="w-full relative hero-frame bg-surface-container-lowest p-2.5 sm:p-3 shadow-[0_24px_50px_-16px_rgba(40,24,0,0.12)] group">
+          <div class="relative w-full aspect-[3/4] overflow-hidden bg-surface-container">
+            <img alt="" class="w-full h-full object-cover object-top transition-transform duration-700 ease-out group-hover:scale-[1.03]" decoding="async" fetchpriority="high" id="hero-portrait" onerror="this.remove()" src="{% static 'img/hero-main.png' %}">
+          </div>
+          <div class="pt-3 pb-1 px-2 flex items-center justify-between">
+            <div>
+              <span class="font-label-caps text-label-caps uppercase tracking-[0.25em] text-secondary block">Featured look</span>
+              <p class="font-title-editorial text-title-editorial text-primary tracking-wide mb-0">Discover the collection</p>
+            </div>
+            <a class="font-label-caps text-label-caps uppercase tracking-widest text-secondary hover:text-primary transition-colors inline-flex items-center gap-1" href="{% url 'product_list' %}">
+              <span>View</span>
+              <span class="material-symbols-outlined text-[14px]">arrow_forward</span>
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right: two smaller plates -->
+      <div class="hidden lg:flex lg:col-span-3 flex-col gap-space-md lg:pt-8">
+        <div class="group hero-frame bg-surface-container-low p-2 shadow-sm" data-parallax="0.14">
+          <div class="aspect-[4/5] overflow-hidden bg-surface-container">
+            <img alt="" class="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.04]" decoding="async" loading="lazy" onerror="this.remove()" src="{% static 'img/hero-2.png' %}">
+          </div>
+        </div>
+        <div class="group hero-frame bg-surface-container-low p-2 shadow-sm" data-parallax="0.06">
+          <div class="aspect-[16/10] overflow-hidden bg-surface-container">
+            <img alt="" class="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.04]" decoding="async" loading="lazy" onerror="this.remove()" src="{% static 'img/hero-3.png' %}">
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="pt-space-lg flex flex-col sm:flex-row items-center justify-between gap-4 border-t border-[#DED4C5]/70 mt-space-lg text-on-surface-variant" id="hero-scroll">
+      <div class="flex items-center gap-3">
+        <span class="font-label-caps text-label-caps uppercase tracking-[0.24em] text-secondary">Scroll to discover</span>
+        <div class="w-16 h-[1.5px] bg-[#DED4C5] relative overflow-hidden">
+          <div class="w-full h-full bg-secondary hero-line"></div>
+        </div>
+      </div>
+      <div class="font-label-caps text-label-caps tracking-[0.2em] uppercase">Enquiry-based catalogue</div>
+    </div>
+  </div>
 </section>
 
+<!-- 2. CATEGORIES: ORIGINAL MOSAIC -->
+{% if nav_categories %}
+<section class="w-full py-space-2xl bg-surface-container-low">
+  <div class="max-w-[1560px] mx-auto px-margin md:px-margin-tablet lg:px-margin-desktop">
+    <div class="flex flex-col md:flex-row md:items-end justify-between mb-space-xl">
+      <div class="space-y-2">
+        <span class="font-label-caps text-label-caps uppercase tracking-[0.22em] text-secondary">Disciplines of Form</span>
+        <h2 class="font-headline-lg text-headline-lg text-primary">Find Your Expression</h2>
+      </div>
+      <p class="font-body-md text-body-md text-on-surface-variant max-w-md mt-4 md:mt-0">Pieces that carry meaning, memory, and artistry, curated across traditional disciplines and contemporary aesthetics.</p>
+    </div>
+
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-gutter lg:gap-gutter-desktop items-stretch">
+
+      {% for category in nav_categories|slice:":1" %}
+      <a class="group lg:col-span-5 relative bg-surface-container overflow-hidden flex flex-col justify-between shadow-sm min-h-[460px] lg:min-h-[580px]" href="{% url 'product_list' %}?category={{ category.slug }}">
+        {% if category.image %}
+        <img alt="" class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105" decoding="async" loading="lazy" src="{{ category.image.url }}">
+        {% endif %}
+        <div class="absolute inset-0 bg-gradient-to-t from-primary/80 via-primary/20 to-transparent"></div>
+        <div class="relative p-space-md flex justify-end items-start">
+          <span class="material-symbols-outlined text-surface-container-lowest group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform">north_east</span>
+        </div>
+        <div class="relative p-space-md space-y-1 text-on-primary">
+          <span class="font-label-caps text-label-caps uppercase tracking-[0.18em] text-secondary-fixed">01</span>
+          <h3 class="font-headline-md text-headline-md text-surface-bright">{{ category.name }}</h3>
+          {% if category.description %}
+          <p class="font-body-sm text-body-sm text-surface-variant max-w-xs opacity-90">{{ category.description|truncatewords:14 }}</p>
+          {% endif %}
+        </div>
+      </a>
+      {% endfor %}
+
+      {% if nav_categories|length > 1 %}
+      <div class="lg:col-span-7 grid grid-cols-1 sm:grid-cols-2 gap-gutter">
+        {% for category in nav_categories|slice:"1:5" %}
+        <a class="group relative bg-surface-container overflow-hidden flex flex-col justify-between shadow-sm min-h-[270px]" href="{% url 'product_list' %}?category={{ category.slug }}">
+          {% if category.image %}
+          <img alt="" class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105" decoding="async" loading="lazy" src="{{ category.image.url }}">
+          {% endif %}
+          <div class="absolute inset-0 bg-gradient-to-t from-primary/75 via-primary/10 to-transparent"></div>
+          <div class="relative p-space-sm flex justify-end">
+            <span class="material-symbols-outlined text-surface-container-lowest group-hover:translate-x-1 transition-transform">north_east</span>
+          </div>
+          <div class="relative p-space-md text-on-primary">
+            <span class="font-label-caps text-label-caps uppercase tracking-widest text-secondary-fixed">{{ forloop.counter|add:1|stringformat:"02d" }}</span>
+            <h3 class="font-headline-sm text-headline-sm text-surface-bright">{{ category.name }}</h3>
+            {% if category.description %}
+            <p class="font-body-sm text-body-sm text-surface-variant opacity-85">{{ category.description|truncatewords:8 }}</p>
+            {% endif %}
+          </div>
+        </a>
+        {% endfor %}
+      </div>
+      {% endif %}
+
+    </div>
+  </div>
+</section>
+{% endif %}
+
+<!-- 3. SELECTED FOR YOU -->
 {% if featured_products %}
-<section>
-    <h2>Selected for You</h2>
-    {% for product in featured_products %}
-    <article>
-        {% if product.main_image %}
-        <img src="{{ product.main_image.url }}" alt="{{ product.main_image_alt }}" width="300">
-        {% endif %}
-        <h3><a href="{{ product.get_absolute_url }}">{{ product.name }}</a></h3>
-        <p>{{ product.category.name }}</p>
-    </article>
-    {% endfor %}
+<section class="w-full py-space-2xl bg-surface">
+  <div class="max-w-[1560px] mx-auto px-margin md:px-margin-tablet lg:px-margin-desktop">
+    <div class="text-center max-w-2xl mx-auto mb-space-xl space-y-3">
+      <span class="font-label-caps text-label-caps uppercase tracking-[0.22em] text-secondary">Curated Pieces</span>
+      <h2 class="font-headline-lg text-headline-lg text-primary">Selected for You</h2>
+      <p class="font-body-md text-body-md text-on-surface-variant">A considered selection of pieces that deserve a closer look, each with direct enquiry.</p>
+    </div>
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-gutter lg:gap-gutter-desktop">
+      {% for product in featured_products %}
+        {% include "catalogue/_product_card.html" %}
+      {% endfor %}
+    </div>
+    <div class="mt-space-xl text-center">
+      <a class="inline-flex items-center gap-2 pb-1 text-primary hover:text-secondary font-button text-button uppercase tracking-[0.18em] transition-all" href="{% url 'product_list' %}">
+        <span>View All Jewellery</span>
+        <span class="material-symbols-outlined text-[16px]">arrow_forward</span>
+      </a>
+    </div>
+  </div>
 </section>
 {% endif %}
 
+<!-- 4. MAISON / CRAFTSMANSHIP -->
+<section class="w-full py-space-2xl bg-surface-container">
+  <div class="max-w-[1560px] mx-auto px-margin md:px-margin-tablet lg:px-margin-desktop">
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-gutter lg:gap-gutter-desktop items-center">
+      <div class="lg:col-span-6 relative">
+        <div class="relative z-10 w-full sm:w-5/6 aspect-[4/5] bg-surface-container-high overflow-hidden shadow-md">
+          <img alt="A goldsmith's hands setting stones into a gold piece under warm lamp light" class="w-full h-full object-cover" src="{% static 'img/craftsmanship.jpg' %}" loading="lazy">
+        </div>
+        <div class="hidden sm:block absolute -bottom-10 -right-4 w-3/5 aspect-square bg-surface-container-lowest p-3 shadow-xl z-20">
+          <img alt="Close-up of fine gold filigree wirework" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDC_tVXuUonegVz2CGuwsMaA4nVuyLA-dErPYa3xOHFxtdrjeFk0q7l1QT2_0nBnXqamiBkZUsGt_DT108DzN--JgkmPENtnOMh4t8FNK9yAfk7L7ZApHoCLA3GJrgoG9IKfFyyM3xEprWNHDhypXzZ4GH3nBW2GPhQKX5liKqGEBsQbsiIqmzLfGVkawyduke4_u7o6377_VYjjKrlbq4sduPlZpIrjyzR4b4iyUgegvparX8Y_uffKA" loading="lazy">
+        </div>
+      </div>
+      <div class="lg:col-span-6 lg:pl-space-lg mt-space-lg lg:mt-0 space-y-space-md">
+        <div class="space-y-2">
+          <span class="font-label-caps text-label-caps uppercase tracking-[0.25em] text-secondary">The Maison Philosophy</span>
+          <h2 class="font-headline-lg text-headline-lg text-primary">
+            Rooted in Craft.<br/><span class="italic font-light text-secondary">Made for Today.</span>
+          </h2>
+        </div>
+        <p class="font-body-lg text-body-lg text-on-surface-variant leading-relaxed">
+          Every detail tells a story. Solvaara brings the spirit of Indian adornment into a contemporary expression, celebrating the beauty of materials, intricate forms, and thoughtful design.
+        </p>
+        <p class="font-body-md text-body-md text-on-surface leading-relaxed">
+          Bridging centuries-old ornamental traditions with clean architectural restraint, we create pieces made to be worn effortlessly.
+        </p>
+        <div class="pt-4">
+          <a class="group inline-flex items-center gap-2 font-button text-button uppercase tracking-[0.16em] text-primary hover:text-secondary transition-colors" href="{% url 'about' %}">
+            <span>Discover Our Story</span>
+            <span class="material-symbols-outlined text-[16px] transition-transform duration-300 group-hover:translate-x-1">arrow_forward</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 5. NEW ARRIVALS -->
 {% if new_arrivals %}
-<section>
-    <h2>Recently Discovered</h2>
-    {% for product in new_arrivals %}
-    <article>
-        {% if product.main_image %}
-        <img src="{{ product.main_image.url }}" alt="{{ product.main_image_alt }}" width="300">
-        {% endif %}
-        <h3><a href="{{ product.get_absolute_url }}">{{ product.name }}</a></h3>
-        <p>{{ product.category.name }}</p>
-    </article>
-    {% endfor %}
-    <p><a href="{% url 'product_list' %}">View all jewellery</a></p>
+<section class="w-full py-space-2xl bg-surface">
+  <div class="max-w-[1560px] mx-auto px-margin md:px-margin-tablet lg:px-margin-desktop">
+    <div class="flex flex-col md:flex-row md:items-end justify-between mb-space-xl">
+      <div class="space-y-2">
+        <span class="font-label-caps text-label-caps uppercase tracking-[0.22em] text-secondary">Fresh from the Forge</span>
+        <h2 class="font-headline-lg text-headline-lg text-primary">Recently Discovered</h2>
+      </div>
+      <p class="font-body-md text-body-md text-on-surface-variant max-w-sm mt-3 md:mt-0">New silhouettes, newly added to the collection.</p>
+    </div>
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-gutter lg:gap-gutter-desktop">
+      {% for product in new_arrivals %}
+        {% include "catalogue/_product_card.html" %}
+      {% endfor %}
+    </div>
+    <div class="mt-space-xl text-center">
+      <a class="px-8 py-3.5 bg-transparent text-primary hover:bg-primary hover:text-on-primary font-button text-button uppercase tracking-[0.16em] transition-all duration-300 inline-block shadow-sm" href="{% url 'product_list' %}">Explore Complete Catalogue</a>
+    </div>
+  </div>
 </section>
 {% endif %}
+
+<!-- 6. WHATSAPP ENQUIRY -->
+{% if site_whatsapp_link %}
+<section class="w-full py-space-2xl bg-surface-container-low">
+  <div class="max-w-[1560px] mx-auto px-margin md:px-margin-tablet lg:px-margin-desktop">
+    <div class="relative overflow-hidden bg-surface-container-lowest p-space-lg md:p-space-xl shadow-lg">
+      <div class="absolute -right-20 -bottom-20 w-80 h-80 rounded-full bg-secondary-container/20 blur-3xl pointer-events-none"></div>
+      <div class="relative z-10 max-w-3xl mx-auto text-center space-y-space-md">
+        <div class="inline-flex items-center gap-2 px-3 py-1 bg-surface-container text-secondary font-label-caps text-label-caps uppercase tracking-[0.2em]">
+          <span class="w-1.5 h-1.5 rounded-full bg-secondary"></span>
+          Private Concierge &amp; Styling
+        </div>
+        <h2 class="font-headline-lg text-headline-lg text-primary">Found Something You Love?</h2>
+        <p class="font-body-lg text-body-lg text-on-surface-variant max-w-xl mx-auto leading-relaxed">Have a question about a piece? Get in touch with us for availability and details.</p>
+        <div class="pt-space-xs flex flex-col items-center gap-3">
+          <a class="inline-flex items-center gap-3 px-8 py-4 bg-primary text-on-primary font-button text-button uppercase tracking-[0.18em] hover:bg-tertiary-container transition-all duration-300 shadow-md" href="{{ site_whatsapp_link }}" rel="noopener" target="_blank">
+            {% include "_whatsapp_icon.html" with class="w-5 h-5 text-secondary-fixed-dim" %}
+            <span>Enquire on WhatsApp</span>
+          </a>
+          <span class="font-body-sm text-body-sm text-on-surface-variant">Direct dialogue with our boutique concierge</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+{% endif %}
+
+</div>
+
+<script>
+(function () {
+  var reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  var wide = window.matchMedia("(min-width: 1024px)");
+  if (reduce) { return; }
+
+  var layers = document.querySelectorAll("[data-parallax]");
+  var portrait = document.getElementById("hero-portrait");
+  var narrative = document.getElementById("hero-narrative");
+  var indicator = document.getElementById("hero-scroll");
+  var hero = document.getElementById("hero-section");
+  var ticking = false;
+
+  function update() {
+    var y = window.pageYOffset || document.documentElement.scrollTop;
+    var h = hero ? hero.offsetHeight : 800;
+    ticking = false;
+    if (!wide.matches || y > h + 200) { return; }
+    var p = Math.min(y / h, 1);
+
+    layers.forEach(function (el) {
+      el.style.transform = "translateY(" + (y * parseFloat(el.dataset.parallax)) + "px)";
+    });
+    if (portrait) { portrait.style.transform = "scale(" + (1 + p * 0.05) + ")"; }
+    if (narrative) { narrative.style.opacity = Math.max(1 - p * 1.1, 0.5); }
+    if (indicator) { indicator.style.opacity = Math.max(1 - p * 2.5, 0); }
+  }
+
+  window.addEventListener("scroll", function () {
+    if (!ticking) { ticking = true; requestAnimationFrame(update); }
+  }, { passive: true });
+})();
+</script>
 {% endblock %}
