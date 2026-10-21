@@ -549,6 +549,4 @@ Open the **Error log** link on the Web tab first.
 - Do not invent a shop address, opening hours, ratings or reviews for a fictional brand.
 - Photographs from other brands in design references are mood-board material only. Do not use them on the site.
 
-## Licence
 
-Not yet chosen. Add a licence file before sharing the code with an intention to reuse.
